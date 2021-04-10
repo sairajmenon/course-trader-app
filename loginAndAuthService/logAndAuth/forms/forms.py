@@ -9,13 +9,13 @@ class Validations:
         return self.validate_username(username) and self.validate_email(email)
     
     def validate_username(self, username):
-        username = User.query.filter_by(username=username.data).first()
+        username = User.query.filter_by(username=username).first()
         if username:
             raise UserNameValidationError('That username has already been taken. Please choose another username')
         return True
     
     def validate_email(self, email):
-        email = User.query.filter_by(email=email.data).first()
+        email = User.query.filter_by(email=email).first()
 
         if email:
             raise EmailValidationError('That email has already been taken. Please choose another email')

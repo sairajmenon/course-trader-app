@@ -12,7 +12,7 @@ import datetime
 response_template = {
     'session_id':None,
     'response_code':200,
-    'error_code':1
+    'error_code':None
     }
 
 session_template = {
@@ -24,6 +24,8 @@ session_template = {
     }
 
 SERVICE_NAME = 'loginAndAuthService'
+validationObj = Validations()
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -36,7 +38,7 @@ def register():
     password = request.form.get("password")
 
     try:
-        Validations.validate_username_password(email,username)
+        validationObj.validate_username_email(username,email)
         hash_password = bcrypt.generate_password_hash(password).decode('utf-8')
         user = User(username=username, isadmin=False,email=email, password=hash_password)
 
@@ -68,12 +70,12 @@ def login():
     remember = request.form.get("remember")
 
     try:
-        Validations.validate_email_password(email,password)
+        validationObj.validate_email_password(email,password)
         user = User.query.filter_by(email=email).first()
         login_user(user, remember=remember)
 
 
-        session_id = uuid.uuid4()
+        session_id = str(uuid.uuid4())
         session_data = session_template.copy()
         session_data['username'] = user.username
         session_data['emailId'] = email
@@ -115,7 +117,7 @@ def getAuthorized(session_id):
         session[session_id] = session_data
 
         response['response_code'] = 200
-        response['session_id'] = session_id
+        response['session_id'] = str(session_id)
 
     except EmailDoesNotExist:
         response['response_code'] = 406
@@ -136,7 +138,7 @@ def logout(session_id):
         session.pop(session_id)
 
         response['response_code'] = 200
-       
+
     except EmailDoesNotExist:
         response['response_code'] = 406
         response['error_code'] = 13
