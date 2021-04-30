@@ -1,8 +1,8 @@
 var socket = io();
 var messages = document.getElementById("messages");
 
-(function() {
-  $("form").submit(function(e) {
+(function () {
+  $("form").submit(function (e) {
     let li = document.createElement("li");
     e.preventDefault(); // prevents page reloading
     socket.emit("chat message", $("#message").val(), $("#from").val(), $("#to").val());
@@ -27,24 +27,22 @@ var messages = document.getElementById("messages");
   });
 })();
 
-// fetching initial chat messages from the database
 (function() {
-  fetch("/chats")
-    .then(data => {
-      return data.json();
-    })
-    .then(json => {
-      console.log(json, "JSON")
-      json.map(data => {
-        let li = document.createElement("li");
-        let span = document.createElement("span");
-        if((data.senderId == $("#from").val() || data.senderId==$("#to").val()) && (data.receiverId == $("#from").val() || data.receiverId==$("#to").val())) {
-          messages.appendChild(li).append(data.message);
-          messages.appendChild(span).append("by " + data.senderId + ": " + formatTimeAgo(data.createdAt));
-        } 
+    fetch("/chats")
+      .then(data => {
+        return data.json();
+      })
+      .then(json => {
+        JSON.parse(json).map(data => {
+          let li = document.createElement("li");
+          let span = document.createElement("span");
+          if((data.sender == $("#from").val() || data.sender==$("#to").val()) && (data.receiver == $("#from").val() || data.receiver==$("#to").val())) {
+            messages.appendChild(li).append(data.message);
+            messages.appendChild(span).append("by " + data.sender + ": " + formatTimeAgo(data.send_time));
+          } 
+        });
       });
-    });
-})();
+  })();
 
 //is typing...
 
@@ -58,7 +56,6 @@ messageInput.addEventListener("keypress", () => {
 
 socket.on("notifyTyping", data => {
   typing.innerText = data.user + " " + data.message;
-  console.log(data.user + data.message);
 });
 
 //stop typing

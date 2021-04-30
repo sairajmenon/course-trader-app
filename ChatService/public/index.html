@@ -24,8 +24,8 @@
    <i id="typing"></i>
     <form id="form">
         <div class="message_input_wrapper">
-            <input id="from" type="hidden" value="1">
-            <input id="to" type="hidden" value="2">
+            <input id="from" type="hidden" value="a">
+            <input id="to" type="hidden" value="b">
             <input id="message" class="message_input" placeholder="Type your message here..." />
         </div>
         <button class="send_message">
@@ -34,6 +34,15 @@
       </form>
     </div>
 </div>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const sender = urlParams.get('sender');
+  const receiver = urlParams.get('receiver');
+
+  document.getElementById("from").value = sender;
+  document.getElementById("to").value = receiver;
+
+</script>
 
     <script src="/js/socket.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>

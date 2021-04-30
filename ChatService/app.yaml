@@ -1,0 +1,5 @@
+runtime: nodejs
+service: course-chat-service
+env: flex
+beta_settings:
+  cloud_sql_instances: upbeat-stratum-310102:us-central1:cloudmysql

@@ -1,8 +1,28 @@
-const mongoose = require("mongoose");
-mongoose.Promise = require("bluebird");
+var mysql = require('mysql');
 
-const url = "mongodb://localhost:27017/chat";
+var con = mysql.createConnection({
+  host: "upbeat-stratum-310102:us-central1:cloudmysql",
+  user: "root",
+  password: "cloudmysql",
+  database: "cloudproject"
+});
 
-const connect = mongoose.connect(url, { useNewUrlParser: true });
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected mysql!");
+// });
 
-module.exports = connect;
+// const createTcpPool = async config => {
+//   // Extract host and port from socket address
+//   // Establish a connection to the database
+//   return await mysql.createPool({
+//     user: "root", // e.g. 'my-db-user'
+//     password: "clousmysql", // e.g. 'my-db-password'
+//     database: "chat", // e.g. 'my-database'
+//     host: "upbeat-stratum-310102:us-central1:cloudmysql", // e.g. '127.0.0.1'
+//     port: 3306, // e.g. '3306'
+//   });
+// };
+
+
+module.exports = con;
