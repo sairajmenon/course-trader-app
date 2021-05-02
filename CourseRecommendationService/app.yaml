@@ -1,0 +1,26 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:
+  python_version: 3.7
+
+service: course-recommendation-service
+
+env_variables:
+  REDISHOST: '10.234.140.171'
+  REDISPORT: '6379'
+
+beta_settings:
+  cloud_sql_instances: upbeat-stratum-310102:us-central1:cloudmysql
+
+network:
+  name: default
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 15
+  cool_down_period_sec: 60
+  cpu_utilization:
+    target_utilization: 0.6
+  target_concurrent_requests: 10

@@ -1,0 +1,113 @@
+<div>
+    <style>
+            h1 {
+                color: green;
+            }
+
+            .multipleSelection {
+                width: 300px;
+            background-color: #BCC2C1;
+            }
+
+            .selectBox {
+                position: relative;
+            }
+
+            .selectBox select {
+                width: 100%;
+            font-weight: bold;
+            }
+
+            .overSelect {
+                position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            }
+
+            #checkBoxes {
+            display: none;
+            border: 1px #8DF5E4 solid;
+            }
+
+            #checkBoxes label {
+            display: block;
+            }
+
+            #checkBoxes label:hover {
+            background-color: #4F615E;
+            }
+
+    </style>
+    <form method='POST' action=''>
+        <fieldset class='form-group'>
+            <legend class='border-bottom mb-4'>Get Recommendation</legend>
+            <label for="major">Major</label><br>
+            <select name="major" id="major">
+                <option value="volvo">Computer Science</option>
+                <option value="saab">Computer Engineering</option>
+            </select><br/><br/>
+            <label for="Specialization">Specialization</label><br/>
+            <select name="specialization" id="specialization">
+                <option value="0">Select Interests</option>
+                <option value="1">MS-Non-Thesis</option>
+                <option value="2">MS-Thesis</option>
+                <option value="3">MS-Cybersecurity</option>
+                <option value="4">MS-Biomedical Informatics</option>
+                <option value="5">MS-Arts, Media, and Engineering</option>
+                <option value="6">MS-Big Data Systems Concentration</option>
+            </select><br/><br/>
+            <label for="interest">Interests</label><br/>
+            <div class="multipleSelection">
+                <div class="selectBox"
+                     onclick="showCheckboxes()">
+                    <select>
+                        <option>Select options</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkBoxes">
+                    <label for="first"><input type="checkbox" id="first" /> Databases</label>
+                    <label for="second"><input type="checkbox" id="second" /> Embedded Systems </label>
+                    <label for="third"><input type="checkbox" id="third" /> Cloud and Distributed system</label>
+                    <label for="fourth"><input type="checkbox" id="fourth" /> Artificial Intelligence</label>
+                    <label for="fifth"><input type="checkbox" id="fifth" /> Machine Learning </label>
+                    <label for="sixth"><input type="checkbox" id="sixth" /> Natural Language Processing </label>
+                </div>
+            </div><br/>
+            <label for="internship">Are you looking Internships?</label><br/>
+            <select name="internship" id="internship">
+                <option value="0">Select</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+            </select><br/><br/>
+            <label for="postms">What are you looking for after MS?</label><br/>
+            <select name="postms" id="postms">
+                <option value="1">Undecided</option>
+                <option value="2">Work</option>
+                <option value="3">Ph.D</option>
+            </select><br/><br/>
+            <div class='form-group'>
+                <button type='submit' class='btn btn-primary'>Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script>
+    var show = true;
+
+    function showCheckboxes() {
+        var checkboxes =
+        document.getElementById("checkBoxes");
+
+        if (show) {
+            checkboxes.style.display = "block";
+        show = false;
+        } else {
+            checkboxes.style.display = "none";
+        show = true;
+        }
+    }
+
+</script>

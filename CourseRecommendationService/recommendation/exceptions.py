@@ -22,3 +22,21 @@ class EmailAndPasswordDoNotMatch(Error):
 
 class InvalidSessionID(Error):
     pass
+
+class InvalidDeptSelected(Error):
+    pass
+
+class InvalidSpecializationSelected(Error):
+    pass
+
+class InvalidInterestSelected(Error):
+    pass
+
+class InvalidPostMSOptionSelected(Error):
+    pass
+
+class CourseNotSpecified(Error):
+    pass
+
+class UnableToProvidedRecommendationAtThisTime(Error):
+    pass

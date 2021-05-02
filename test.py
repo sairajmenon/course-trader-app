@@ -1,5 +1,11 @@
-from logAndAuth import db
 from datetime import datetime
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +24,9 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    username = db.Column(db.String(20), db.ForeignKey('user.username'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.username}',{self.title}', '{self.content}',{self.date_posted}')"
+        return f"Post('{self.title}', '{self.date_posted}')"
+
+db.create_all()
